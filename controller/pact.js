@@ -140,7 +140,7 @@ const getReviewPact = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const pact = await Pact.findOne({ partners: userId }).populate('partners', 'firstName');
+    const pact = await Pact.findOne({ partners: userId }).populate('partners');
 console.log("PACT FOUNd")
 console.log(pact)
     if (!pact) {
@@ -172,8 +172,10 @@ console.log("allcomplete")
       status: pact.status,
       partnerNames: pact.partnerNames,
       selectedTopics: pact.selectedTopics,
+      partners:pact.partners,
       createdAt: pact.createdAt,
       signedAt: pact.signedAt,
+      currentUserId:req.user._id,
       topics: topics.map((t) => ({
         id: t._id,
         title: t.title,
